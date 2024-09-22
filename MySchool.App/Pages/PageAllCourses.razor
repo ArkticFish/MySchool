@@ -1,0 +1,44 @@
+﻿@page "/allCourses"
+
+@using Microsoft.AspNetCore.Authorization
+@using MySchool.App.Services
+
+@attribute [Authorize(Roles = "student")]
+
+@inject StudentService StudentService;
+@inject NavigationManager NavigationManager;
+
+<h3>Courses</h3>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in courses)
+            {
+                <tr @onclick="() => SelectCourse(course)">
+                    <td>@course.CourseId</td>
+                    <td>@course.CourseName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (selectedCourse != null)
+    {
+        <div>
+            <h4>Selected Course</h4>
+            <p>Course ID: @selectedCourse.CourseId</p>
+            <p>Course Name: @selectedCourse.CourseName</p>
+            <button class="btn btn-danger" @onclick="RegisterCourse">Register</button>
+        </div>
+    }
+
+</div>
+
+

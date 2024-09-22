@@ -1,0 +1,28 @@
+﻿@page "/login"
+
+@using MySchool.App.Services
+
+@inject StudentService StudentService;
+@inject NavigationManager NavigationManager;
+@inject JwtAuthenticationStateProvider AuthenticationStateProvider;
+
+<h3>Login</h3>
+
+<form @onsubmit="StudentLogin">
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" @bind-value="login.Email" />
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" name="password" @bind-value="login.Password" />
+    </div>
+    <button type="submit">Login</button>
+</form>
+
+@if (errorMessage != null)
+{
+    <p>@errorMessage</p>
+}
+
+<a href="register">Register</a>
